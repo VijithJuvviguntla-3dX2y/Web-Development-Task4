@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TaskFlow — To-Do Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         TOP NAVIGATION
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <div class="logo-box">
+                ✓
+            </div>
+
+            <div>
+                <h2>TaskFlow</h2>
+                <span>SMART TASK MANAGER</span>
+            </div>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <button
+                id="notificationBtn"
+                class="nav-btn"
+            >
+                🔔 Notifications
+            </button>
+
+            <button
+                id="todayBtn"
+                class="nav-btn dark"
+            >
+                Today
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN APPLICATION
+    ====================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <div>
+
+                <span class="eyebrow">
+                    YOUR PERSONAL PRODUCTIVITY SPACE
+                </span>
+
+                <h1>
+                    Get things done.
+                    <span>Stay on time.</span>
+                </h1>
+
+                <p>
+                    Organize your tasks, set deadlines,
+                    track your progress and celebrate every
+                    completed task.
+                </p>
+
+            </div>
+
+
+            <div class="date-card">
+
+                <span id="currentDay">
+                    MONDAY
+                </span>
+
+                <strong id="currentDate">
+                    22
+                </strong>
+
+                <span id="currentMonth">
+                    AUGUST 2026
+                </span>
+
+                <small id="currentTime">
+                    05:21 PM
+                </small>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DASHBOARD STATISTICS
+        ================================================== -->
+
+        <section class="statistics">
+
+            <div class="stat">
+
+                <span>ALL TASKS</span>
+
+                <strong id="totalTasks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>COMPLETED</span>
+
+                <strong id="completedTasks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>PENDING</span>
+
+                <strong id="pendingTasks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span>OVERDUE</span>
+
+                <strong
+                    id="overdueTasks"
+                    class="red-number"
+                >
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             APPLICATION GRID
+        ================================================== -->
+
+        <section class="workspace">
+
+
+            <!-- =================================================
+                 LEFT SIDE — TASK FORM
+            ================================================== -->
+
+            <aside class="sidebar">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span>
+                            TASK MANAGER
+                        </span>
+
+                        <h2 id="formTitle">
+                            Add New Task
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <form id="taskForm">
+
+
+                    <!-- Task title -->
+
+                    <label>
+                        TASK NAME
+
+                        <input
+                            id="taskTitle"
+                            type="text"
+                            placeholder="What needs to be done?"
+                            required
+                        >
+
+                    </label>
+
+
+
+                    <!-- Description -->
+
+                    <label>
+                        DESCRIPTION
+
+                        <textarea
+                            id="taskDescription"
+                            placeholder="Add some details..."
+                            rows="4"
+                        ></textarea>
+
+                    </label>
+
+
+
+                    <!-- Category -->
+
+                    <label>
+                        LIST / CATEGORY
+
+                        <select id="taskCategory">
+
+                            <option value="Personal">
+                                Personal
+                            </option>
+
+                            <option value="Work">
+                                Work
+                            </option>
+
+                            <option value="Study">
+                                Study
+                            </option>
+
+                            <option value="Shopping">
+                                Shopping
+                            </option>
+
+                            <option value="Important">
+                                Important
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+
+                    <!-- Deadline -->
+
+                    <label>
+                        DEADLINE
+
+                        <input
+                            id="taskDeadline"
+                            type="datetime-local"
+                            required
+                        >
+
+                    </label>
+
+
+
+                    <!-- Reminder -->
+
+                    <label>
+                        REMIND ME BEFORE
+
+                        <select id="taskReminder">
+
+                            <option value="5">
+                                5 minutes before
+                            </option>
+
+                            <option value="10">
+                                10 minutes before
+                            </option>
+
+                            <option value="15" selected>
+                                15 minutes before
+                            </option>
+
+                            <option value="30">
+                                30 minutes before
+                            </option>
+
+                            <option value="60">
+                                1 hour before
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+
+                    <div class="form-buttons">
+
+                        <button
+                            type="submit"
+                            class="add-btn"
+                            id="submitBtn"
+                        >
+                            + ADD TASK
+                        </button>
+
+                        <button
+                            type="button"
+                            class="cancel-btn hidden"
+                            id="cancelEdit"
+                        >
+                            CANCEL
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- Categories -->
+
+                <div class="categories">
+
+                    <h3>
+                        MY LISTS
+                    </h3>
+
+                    <button
+                        class="category active"
+                        data-category="All"
+                    >
+                        <span>◉</span>
+                        All Tasks
+                        <b id="allCount">0</b>
+                    </button>
+
+                    <button
+                        class="category"
+                        data-category="Personal"
+                    >
+                        <span>●</span>
+                        Personal
+                        <b id="personalCount">0</b>
+                    </button>
+
+                    <button
+                        class="category"
+                        data-category="Work"
+                    >
+                        <span>●</span>
+                        Work
+                        <b id="workCount">0</b>
+                    </button>
+
+                    <button
+                        class="category"
+                        data-category="Study"
+                    >
+                        <span>●</span>
+                        Study
+                        <b id="studyCount">0</b>
+                    </button>
+
+                    <button
+                        class="category"
+                        data-category="Shopping"
+                    >
+                        <span>●</span>
+                        Shopping
+                        <b id="shoppingCount">0</b>
+                    </button>
+
+                    <button
+                        class="category"
+                        data-category="Important"
+                    >
+                        <span>●</span>
+                        Important
+                        <b id="importantCount">0</b>
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+
+            <!-- =================================================
+                 CENTER — TASK LIST
+            ================================================== -->
+
+            <section class="task-section">
+
+
+                <div class="task-header">
+
+                    <div>
+
+                        <span>
+                            YOUR TASKS
+                        </span>
+
+                        <h2 id="listTitle">
+                            All Tasks
+                        </h2>
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <button
+                            class="filter active"
+                            data-filter="all"
+                        >
+                            All
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="pending"
+                        >
+                            Pending
+                        </button>
+
+                        <button
+                            class="filter"
+                            data-filter="completed"
+                        >
+                            Completed
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Task list -->
+
+                <div
+                    id="taskList"
+                    class="task-list"
+                ></div>
+
+
+                <!-- Empty state -->
+
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                >
+
+                    <div class="empty-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        No tasks here
+                    </h3>
+
+                    <p>
+                        Add a task to start organizing
+                        your day.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RIGHT — CALENDAR
+            ================================================== -->
+
+            <aside class="calendar-panel">
+
+
+                <div class="calendar-header">
+
+                    <button id="prevMonth">
+                        ‹
+                    </button>
+
+                    <div>
+
+                        <h2 id="calendarMonth">
+                            August
+                        </h2>
+
+                        <span id="calendarYear">
+                            2026
+                        </span>
+
+                    </div>
+
+                    <button id="nextMonth">
+                        ›
+                    </button>
+
+                </div>
+
+
+                <!-- Weekdays -->
+
+                <div class="weekdays">
+
+                    <span>MON</span>
+                    <span>TUE</span>
+                    <span>WED</span>
+                    <span>THU</span>
+                    <span>FRI</span>
+                    <span>SAT</span>
+                    <span>SUN</span>
+
+                </div>
+
+
+                <!-- Calendar days -->
+
+                <div
+                    id="calendarDays"
+                    class="calendar-days"
+                ></div>
+
+
+                <div class="calendar-info">
+
+                    <span>
+                        SELECTED DATE
+                    </span>
+
+                    <strong id="selectedDateText">
+                        Select a date
+                    </strong>
+
+                </div>
+
+
+                <div
+                    id="calendarTasks"
+                    class="calendar-tasks"
+                ></div>
+
+
+                <button
+                    id="exportCalendar"
+                    class="calendar-export"
+                >
+                    📅 ADD TASKS TO CALENDAR
+                </button>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         CELEBRATION POPUP
+    ====================================================== -->
+
+    <div
+        id="celebration"
+        class="celebration hidden"
+    >
+
+        <div class="celebration-box">
+
+            <div class="confetti">
+                🎉
+            </div>
+
+            <h2>
+                Amazing!
+            </h2>
+
+            <p>
+                You completed this task
+                before the deadline!
+            </p>
+
+            <strong>
+                KEEP GOING! 🔥
+            </strong>
+
+            <button id="closeCelebration">
+                CONTINUE
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         EDIT / DELETE CONFIRMATION TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+    ></div>
+
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
